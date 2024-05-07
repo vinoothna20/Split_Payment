@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Courier New", Courier, monospace;
+}
+
+body {
+  background-color: #3a3329;
+}
+
+#div1,
+#div2,
+#div3 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 50px;
+  color: white;
+  box-shadow: 0px 0px 16px 2px black;
+  border-radius: 15px;
+}
+
+#div2,
+#div3 {
+  display: none;
+  text-align: start;
+}
+
+#startBtn,
+#div2 #createBtn,
+#div2 #clkBtn,
+#div3 #splitBtn {
+  margin-top: 40px;
+  padding: 13px 23px;
+  border-radius: 23px;
+  border: none;
+  font-weight: bold;
+  font-size: 17px;
+  background-color: #21e1e1ed;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px 1px #21e1e1ed;
+}
+
+#startBtn:hover {
+  font-size: 18px;
+}
+
+#div2 h2 {
+  margin-bottom: 25px;
+}
+
+#div2 #grpName,
+#div2 #members,
+#div3 #amount,
+#div3 #selectGrp,
+#div3 #membNames {
+  font-size: 19px;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+#div2 #members {
+  margin-right: 60px;
+}
+
+#div2 #grp {
+  width: 170px;
+  margin: 15px 0;
+}
+
+#div2 input,
+#div3 input,
+#div3 #grpsList {
+  outline: none;
+  padding: 2px 0 2px 4px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 13px;
+}
+
+#div2 #add {
+  padding: 2px 7px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 0px 12px 1px gray;
+  margin-bottom: 15px;
+  font-size: 17px;
+}
+
+#div2 #clkP {
+  margin-top: 30px;
+  display: inline-block;
+}
+
+#div2 #clkBtn,
+#div2 #createBtn {
+  margin-top: 15px;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+#div2 #createBtn {
+  font-size: 16px;
+}
+
+#div3 #amnt {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+#div3 #grpsList {
+  margin-top: 15px;
+}
+
+#div3 #membNames {
+  margin-top: 20px;
+  margin-bottom: 0;
+  line-height: 1.5em;
+}
+
+#div3 #scus,
+#div3 #dtls {
+  margin-top: 25px;
+}
+
+#div3 #scus {
+  line-height: 1.5em;
+}
+
+#div3 #memAmnt {
+  margin-top: 10px;
+  margin-left: 16px;
+}
+
+@media screen and (max-width: 374px) {
+  #div2,
+  #div3 {
+    padding: 50px 40px;
+  }
+}

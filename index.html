@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Split Payment</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <div id="div1">
+        <h2 style="line-height: 1.5em">Split bill with your friends...</h2>
+        <div>
+          <button id="startBtn" onclick="startFun()">Get Started!</button>
+        </div>
+      </div>
+
+      <div id="div2">
+        <h2>Create a group</h2>
+        <label id="grpName" for="grp">Group Name</label>
+        <input type="text" id="grp" /> <br />
+        <label id="members" for="memb">Add Members</label>
+        <button id="add" onclick="addMemFun()">+</button> <br />
+        <input type="text" />
+        <br id="break" />
+        <button id="createBtn" onclick="createGrpFun()" type="submit">
+          Create
+        </button>
+        <br />
+        <p id="clkP">Already has a group?</p>
+        <button id="clkBtn" onclick="existGrpFun()">Click here</button>
+      </div>
+
+      <div id="div3">
+        <!-- <div id="billDiv"> -->
+        <label for="amnt" id="amount">Enter amount</label>
+        <input type="text" id="amnt" /> <br />
+        <label for="grpsList" id="selectGrp">Select a group</label>
+        <select name="grps" id="grpsList" onchange="grpMembersFun()">
+          <option value="">-- Select --&nbsp;</option>
+        </select>
+        <br />
+        <p id="membNames"></p>
+        <div style="text-align: center" id="splitDiv">
+          <button id="splitBtn" onclick="splitFun()">Split</button>
+        </div>
+      </div>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
