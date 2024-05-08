@@ -38,9 +38,32 @@ function createGrpFun() {
 
   inpList = document.getElementsByTagName("input");
 
-  for (var i = 1; i < inpList.length; i++) {
+  var grpPattern = /^[^\s][a-zA-Z0-9\s]*$/;
+
+  var namePattern = /^[^\s][a-zA-Z\s]*$/;
+
+  if (
+    !grpPattern.test(inpList[0].value) ||
+    inpList[0].value == null ||
+    inpList[0].value == ""
+  ) {
+    alert("Enter a valid group name with no special characters");
+    return false;
+  }
+
+  for (var i = 1; i < inpList.length - 1; i++) {
+    if (
+      !namePattern.test(inpList[i].value) ||
+      inpList[i].value == null ||
+      inpList[i].value == ""
+    ) {
+      alert(`Enter a valid name at input ${i}`);
+      return false;
+    }
     temparr.push(inpList[i].value);
   }
+
+  temparr.push(inpList[i].value);
 
   mainArr[inpList[0].value] = temparr;
 
@@ -106,6 +129,14 @@ function existGrpFun() {
 
 function splitFun() {
   let amnt = document.getElementById("amnt").value;
+
+  var amntPattern = /^-?\d*\.?\d*$/;
+
+  if (!amntPattern.test(amnt)) {
+    alert("Enter only an integer or a float in amount");
+    return false;
+  }
+
   let splitAmnt = (amnt / (nofMem - 1)).toFixed(2);
   let success = document.createElement("p");
   success.innerHTML = "Successfully shared the bill with your friends!";
