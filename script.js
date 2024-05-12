@@ -12,13 +12,22 @@ function startFun() {
   return false;
 }
 
+var i = 2;
+
 function addMemFun() {
-  let temp = document.getElementById("break");
-  let divEle = document.createElement("div");
+  let temp = document.getElementById("membsDiv");
+  let inpEle = document.createElement("input");
+  let delBtn = document.createElement("button");
+  let br = document.createElement("br");
 
-  divEle.innerHTML = '<input type="text" /> ';
+  // tem.innerHTML = '<input type="text" /> ';
+  inpEle.setAttribute("id", `inp${i}`);
+  delBtn.innerHTML = "-";
+  delBtn.setAttribute("id", `btn${i}`);
+  i++;
+  delBtn.setAttribute("onclick", "delMemFun(this.id)");
 
-  temp.before(divEle);
+  temp.append(inpEle, delBtn, br);
 
   let eleDiv2 = document.getElementById("div2");
 
@@ -27,6 +36,36 @@ function addMemFun() {
   if (div2Height > 527) {
     eleDiv2.style.transform = "translate(-50%, -40%)";
   }
+}
+
+function delMemFun(clkId) {
+  let idNo = clkId.charAt(clkId.length - 1);
+  let inpList = document.querySelectorAll("#membsDiv input");
+  let btnList = document.querySelectorAll("#membsDiv button");
+
+  for (var j = 0; j < inpList.length; j++) {
+    let inpId = inpList[j].id;
+    if (inpId.charAt(inpId.length - 1) == idNo) {
+      let temp = document.getElementById(`btn${j + 1}`).nextSibling;
+      if (temp) {
+        temp.remove();
+      }
+      document.getElementById(`inp${j + 1}`).remove();
+      document.getElementById(`btn${j + 1}`).remove();
+      break;
+    }
+  }
+
+  inpList = document.querySelectorAll("#membsDiv input");
+  btnList = document.querySelectorAll("#membsDiv button");
+
+  for (var k = j; k < inpList.length; k++) {
+    inpList[k].id = `inp${k + 1}`;
+    btnList[k].id = `btn${k + 1}`;
+  }
+
+  i--;
+  console.log(frndsGrpList);
 }
 
 let s = "";

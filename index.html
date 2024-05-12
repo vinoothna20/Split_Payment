@@ -20,9 +20,15 @@
         <label id="grpName" for="grp">Group Name</label>
         <input type="text" id="grp" /> <br />
         <label id="members" for="memb">Add Members</label>
-        <button id="add" onclick="addMemFun()">+</button> <br />
-        <input type="text" />
-        <br id="break" />
+        <button id="add" onclick="addMemFun()">+</button>
+        <div id="membsDiv">
+          <input id="inp1" type="text" /><button
+            id="btn1"
+            onclick="delMemFun(this.id)"
+          >
+            -</button
+          ><br />
+        </div>
         <button id="createBtn" onclick="createGrpFun()" type="submit">
           Create
         </button>
