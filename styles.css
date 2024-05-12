@@ -81,7 +81,7 @@ body {
 }
 
 #div2 #membsDiv {
-  max-height: 230px;
+  max-height: 180px;
   overflow-y: auto;
 }
 
