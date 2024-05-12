@@ -151,3 +151,12 @@ body {
     padding: 50px 40px;
   }
 }
+
+@media screen and (max-width: 767px) {
+  #div2 input {
+    width: 133px;
+  }
+  #div2 #membsDiv button {
+    margin-left: 10px;
+  }
+}
