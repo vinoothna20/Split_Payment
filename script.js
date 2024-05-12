@@ -65,7 +65,6 @@ function delMemFun(clkId) {
   }
 
   i--;
-  console.log(frndsGrpList);
 }
 
 let s = "";
@@ -200,8 +199,6 @@ function splitFun() {
   let eleDiv3 = document.getElementById("div3");
 
   let div3Height = eleDiv3.clientHeight;
-
-  console.log(div3Height);
 
   if (div3Height > 439) {
     eleDiv3.style.transform = "translate(-50%, -40%)";
