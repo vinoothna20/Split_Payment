@@ -46,7 +46,16 @@
         </select>
         <br />
         <p id="membNames"></p>
-        <div style="text-align: center" id="splitDiv">
+        <div
+          style="
+            text-align: center;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+          "
+          id="splitDiv"
+        >
+          <button id="backBtn" onclick="backFun()">Back</button>
           <button id="splitBtn" onclick="splitFun()">Split</button>
         </div>
       </div>

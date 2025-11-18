@@ -77,7 +77,6 @@ function createGrpFun() {
   inpList = document.getElementsByTagName("input");
 
   var grpPattern = /^[^\s][a-zA-Z0-9\s]*$/;
-
   var namePattern = /^[^\s][a-zA-Z\s]*$/;
 
   if (
@@ -103,29 +102,49 @@ function createGrpFun() {
 
   temparr.push(inpList[i].value);
 
+  // create the group object correctly
   mainArr[inpList[0].value] = temparr;
 
-  frndsGrpList.push(mainArr);
+  // Check if group already exists
+  let existingIndex = frndsGrpList.findIndex(
+    (grp) => Object.keys(grp)[0] === inpList[0].value
+  );
 
-  let keysList = [];
+  if (existingIndex !== -1) {
+    let userChoice = confirm(
+      "This group already exists!\n\nClick OK to replace it.\nClick Cancel to enter a new group name."
+    );
 
-  for (var i = 0; i < frndsGrpList.length; i++) {
-    keysList.push(Object.keys(frndsGrpList[i]));
+    if (userChoice) {
+      frndsGrpList[existingIndex] = mainArr; // Replace
+    } else {
+      alert("Please enter a new group name.");
+      return false;
+    }
+  } else {
+    frndsGrpList.push(mainArr); // Add new
   }
 
-  for (i in keysList) {
+  // Clear dropdown before re-rendering
+  document.getElementById("grpsList").innerHTML =
+    `<option value="">-- Select --</option>`;
+
+  // Repopulate dropdown
+  let keysList = frndsGrpList.map((grp) => Object.keys(grp)[0]);
+
+  keysList.forEach((key) => {
     let node = document.createElement("option");
-    node.setAttribute("value", `${keysList[i]}`);
-    let textnode = document.createTextNode(`${keysList[i]}`);
-    node.appendChild(textnode);
+    node.value = key;
+    node.textContent = key;
     document.getElementById("grpsList").appendChild(node);
-  }
+  });
 
   saveToStorage();
 
   document.getElementById("div2").style.display = "none";
   document.getElementById("div3").style.display = "block";
 }
+
 
 let valList;
 let nofMem = 0;
@@ -147,37 +166,67 @@ function grpMembersFun() {
 }
 
 function existGrpFun() {
-  document.getElementById("div2").style.display = "none";
-  document.getElementById("div3").style.display = "block";
-  let keysList = [];
-  for (var i = 0; i < frndsGrpList.length; i++) {
-    keysList.push(Object.keys(frndsGrpList[i]));
+  // Check if any groups exist
+  if (frndsGrpList.length === 0) {
+    alert("No groups found! Please create a group first.");
+    return false; // Stop further execution
   }
 
-  for (i in keysList) {
+  clearSplitPage();
+
+  document.getElementById("div2").style.display = "none";
+  document.getElementById("div3").style.display = "block";
+
+  let keysList = frndsGrpList.map(grp => Object.keys(grp)[0]);
+
+  // Clear dropdown
+  document.getElementById("grpsList").innerHTML = `<option value="">-- Select --</option>`;
+
+  keysList.forEach(key => {
     let node = document.createElement("option");
-    node.setAttribute("value", `${keysList[i]}`);
-    let textnode = document.createTextNode(`${keysList[i]}`);
-    node.appendChild(textnode);
+    node.value = key;
+    node.textContent = key;
     document.getElementById("grpsList").appendChild(node);
-  }
+  });
 
   saveToStorage();
 }
 
+
 function splitFun() {
   let amnt = document.getElementById("amnt").value;
+  let selectedGrp = document.getElementById("grpsList").value;
 
+  // Check if amount is entered
+  if (amnt.trim() === "") {
+    alert("Please enter an amount.");
+    return false;
+  }
+
+  // Check if group is selected
+  if (selectedGrp === "") {
+    alert("Please select a group.");
+    return false;
+  }
+
+  // Validate amount format
   var amntPattern = /^-?\d*\.?\d*$/;
-
   if (!amntPattern.test(amnt)) {
-    alert("Enter only an integer or a float in amount");
+    alert("Enter amount in number.");
+    return false;
+  }
+
+  // Prevent splitting again
+  let splitBtn = document.getElementById("splitBtn");
+  if (splitBtn.disabled) {
+    alert("You have already split this bill!");
     return false;
   }
 
   let splitAmnt = (amnt / (nofMem - 1)).toFixed(2);
   let success = document.createElement("p");
   success.innerHTML = "Successfully shared the bill with your friends!";
+
   let detl = document.createElement("details");
   let sumry = document.createElement("summary");
 
@@ -197,12 +246,59 @@ function splitFun() {
   }
 
   let eleDiv3 = document.getElementById("div3");
-
   let div3Height = eleDiv3.clientHeight;
-
   if (div3Height > 439) {
     eleDiv3.style.transform = "translate(-50%, -40%)";
   }
+
+  // Disable split button after splitting
+  splitBtn.disabled = true;
+  splitBtn.style.backgroundColor = "#888"; // gray out button
+}
+
+
+
+function backFun() {
+  // Hide split page, show create page
+  document.getElementById("div3").style.display = "none";
+  document.getElementById("div2").style.display = "block";
+
+  // Clear both pages
+  clearSplitPage();
+  clearCreatePage();
+}
+
+
+function clearCreatePage() {
+  // Clear group name
+  document.getElementById("grp").value = "";
+
+  // Reset members div
+  let membDiv = document.getElementById("membsDiv");
+  membDiv.innerHTML = `
+      <input id="inp1" type="text" />
+      <button id="btn1" onclick="delMemFun(this.id)">-</button><br />
+  `;
+
+  // Reset counter
+  i = 2;
+}
+
+function clearSplitPage() {
+  document.getElementById("amnt").value = "";
+  document.getElementById("grpsList").value = "";
+  document.getElementById("membNames").innerHTML = "";
+
+  // Remove old success message + details
+  let sc = document.getElementById("scus");
+  let dt = document.getElementById("dtls");
+  if (sc) sc.remove();
+  if (dt) dt.remove();
+
+  // Reset the split button
+  let splitBtn = document.getElementById("splitBtn");
+  splitBtn.disabled = false;
+  splitBtn.style.backgroundColor = ""; // Restore original color
 }
 
 localStorage.removeItem("frndsGrpList");
